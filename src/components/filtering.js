@@ -24,7 +24,13 @@ export function initFiltering(elements, indexes) {
             state[action.dataset.field] = '';
         }
 
+        // собираем диапазон суммы в одно поле для правила сравнения
+        const filterState = {
+            ...state,
+            total: [state.totalFrom, state.totalTo]
+        };
+
         // @todo: #4.5 — отфильтровать данные используя компаратор
-        return data.filter(row => compare(row, state));
+        return data.filter(row => compare(row, filterState));
     }
 }
